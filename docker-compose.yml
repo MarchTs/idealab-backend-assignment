@@ -1,15 +1,30 @@
 version: '3.9'
 
 services:
-  db:
-    image: postgres:16.3
-    restart: unless-stopped
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: u1rkXHAJzyDtFvo
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    db:
+        image: postgres:16.3
+        restart: unless-stopped
+        ports:
+            - '5432:5432'
+        environment:
+            POSTGRES_PASSWORD: u1rkXHAJzyDtFvo
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+    app:
+        build: .
+        ports:
+            - '9000:9000'
+        volumes:
+            - .:/app
+        command: yarn app
+        depends_on:
+            - db
+        environment:
+            DATABASE__HOST: db
+            DATABASE__PORT: 5432
+            DATABASE__USER: postgres
+            DATABASE__PASSWORD: u1rkXHAJzyDtFvo
+            DATABASE__NAME: postgres
 
 volumes:
-  postgres_data:
+    postgres_data:
