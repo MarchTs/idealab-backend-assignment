@@ -1,0 +1,25 @@
+meta {
+  name: Register
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{URL}}/auth/register-email
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "a2@b.com",
+    "password": "k!dcPEI$fnpA2QXqH#"
+  }
+}
+
+script:post-response {
+  try{
+    const token = res.getBody().token
+    bru.setEnvVar("token", token)
+  }catch(e){}
+}

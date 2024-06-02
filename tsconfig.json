@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES2019",
+        "lib": ["ES2017", "ES2015", "ES6"],
+        "importHelpers": true,
+        "removeComments": true,
+        "noImplicitAny": true,
+        "outDir": "./dist",
+        "sourceMap": true,
+        "declaration": false,
+        "baseUrl": ".",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "isolatedModules": false,
+        "skipLibCheck": true,
+        "noUnusedParameters": false,
+        "noUnusedLocals": false,
+        "allowUnreachableCode": false,
+        "esModuleInterop": true,
+        "types": ["@types/node", "@types/mocha"],
+        "typeRoots": ["./typings", "./node_modules", "./node_modules/@types"],
+        "paths": {
+            "@app/*": ["./src/*"],
+            "@test/*": ["./test/*"],
+            "@cert/*": ["./cert/*"],
+            "@framework/*": ["./framework/*"]
+        }
+    },
+    "include": ["src/**/*", "./test/**/*", "./migrations/**/*", "framework/database"],
+    "exclude": ["./node_modules/**/*", "./dist/**/*"]
+}
