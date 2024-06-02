@@ -4,13 +4,12 @@ import { InfluencerService } from '@app/modules/influencer/InfluencerService';
 import { CreateInfluencerRequest } from '@app/modules/influencer/requests/CreateInfluencerRequest';
 import { InfluencerQueryParams } from '@app/modules/influencer/requests/InfluencerQueryParams';
 import { UpdateInfluencerRequest } from '@app/modules/influencer/requests/UpdateInfluencerRequest';
-import { Authorized, Body, Delete, Get, JsonController, Param, Post, Put } from 'routing-controllers';
-import { Inject } from 'typedi';
+import { Authorized, Body, Delete, Get, JsonController, Param, Patch, Post } from 'routing-controllers';
+import Container from 'typedi';
 
 @JsonController('/influencer')
 export class InfluencerController {
-    @Inject()
-    private readonly _influencerService: InfluencerService;
+    private readonly _influencerService: InfluencerService = Container.get(InfluencerService);
 
     @Post('/')
     @Authorized()
@@ -30,7 +29,7 @@ export class InfluencerController {
         return this._influencerService.getById(influencerId);
     }
 
-    @Put('/:influencerId')
+    @Patch('/:influencerId')
     @Authorized([Role.ADMIN, Role.INFLUENCER])
     async update(@Param('influencerId') influencerId: string, @Body() request: UpdateInfluencerRequest): Promise<Influencer> {
         return this._influencerService.updateInfluencer(influencerId, request);

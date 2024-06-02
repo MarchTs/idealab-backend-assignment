@@ -67,7 +67,12 @@ export class AuthService {
         try {
             const token = action.request.headers['authorization'].replace('Bearer ', '');
             const jwtPayload: JwtPayload = jwt.verify(token, this.secret) as JwtPayload;
-            return jwtPayload && (!roles.length || roles.some((row) => jwtPayload.roles.includes(row)));
+            if (roles.length === 0) {
+                return !!jwtPayload;
+            }
+            const result = jwtPayload && (!roles.length || roles.some((row) => jwtPayload.roles.includes(row)));
+            console.log(`authorizationChecker`, result);
+            return result;
         } catch (e) {
             return false;
         }

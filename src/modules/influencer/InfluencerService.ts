@@ -52,7 +52,7 @@ export class InfluencerService {
             const modifiedInfluencer = Influencer.fromUpdateRequest(influencer, request);
             await this._influencerDomainService.updateById(uow, influencerId, modifiedInfluencer);
             await uow.saveChanges();
-            return influencer;
+            return modifiedInfluencer;
         });
     }
 
@@ -61,7 +61,6 @@ export class InfluencerService {
         return context(async (uow: IAppUnitOfWork) => {
             const influencer = await this._influencerDomainService.getById(uow, influencerId);
             await this._influencerDomainService.delete(uow, influencer);
-            await uow.saveChanges();
             return influencer;
         });
     }

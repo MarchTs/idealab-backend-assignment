@@ -1,4 +1,3 @@
-import { InfluencerStatus } from '@app/data/definitions/InfluencerStatus';
 import { IsArray, IsNumber, IsString } from 'class-validator';
 
 export class CreateInfluencerRequest {
@@ -31,7 +30,4 @@ export class CreateInfluencerRequest {
 
     @IsNumber()
     public er: number;
-
-    @IsString()
-    public status: InfluencerStatus;
 }

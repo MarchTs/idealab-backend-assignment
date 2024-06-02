@@ -7,7 +7,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('name').notNullable();
         table.string('platform').notNullable();
         table.string('sex').notNullable();
-        table.json('categories').notNullable();
+        table.specificType('categories', 'text ARRAY').notNullable();
         table.string('tel').notNullable();
         table.string('link').notNullable();
         table.integer('followers').notNullable();

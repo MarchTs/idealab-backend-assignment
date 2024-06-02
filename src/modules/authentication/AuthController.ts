@@ -9,7 +9,10 @@ export class AuthController {
 
     @Post('/login')
     async login(@Body() request: EmailAuthLoginRequest) {
-        return this._authService.loginEmail(request);
+        const account = await this._authService.loginEmail(request);
+        const token = await this._authService.createJwtToken(account);
+
+        return { token };
     }
 
     @Post('/register-email')

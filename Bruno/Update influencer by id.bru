@@ -1,0 +1,40 @@
+meta {
+  name: Update influencer by id
+  type: http
+  seq: 6
+}
+
+patch {
+  url: {{URL}}/influencer/{{influencer_id}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:json {
+  {
+      "name": "Ninejoe Ninejoe",
+      "platform": "Facebook",
+      "sex": "female",
+      "categories":[ "Lifestyle"],
+      "tel": "0998935365",
+      "link": "https://www.facebook.com/tsomton?mibextid=LQQJ4d",
+      "followers": 7900,
+      "photo_cost_kols": 800,
+      "vdo_cost_kols": 1000,
+      "er": 2.12
+  }
+  
+}
+
+script:post-response {
+  try{
+    const influencer_id = res.getBody().id
+    if(influencer_id){    
+      bru.setEnvVar("influencer_id", influencer_id)
+    }
+  }catch(e){}
+}

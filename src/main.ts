@@ -5,7 +5,7 @@ import { AppUnitOfWorkFactoryIdentifier } from '@app/data/abstractions/IAppUnitO
 import { AuthController } from '@app/modules/authentication/AuthController';
 import { AuthService } from '@app/modules/authentication/AuthService';
 import { InfluencerController } from '@app/modules/influencer/InfluencerController';
-import { createExpressServer } from 'routing-controllers';
+import { Action, createExpressServer } from 'routing-controllers';
 import Container from 'typedi';
 import { loadConfig } from './config';
 
@@ -16,7 +16,7 @@ const authService = Container.get(AuthService);
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
     controllers: [AuthController, InfluencerController],
-    authorizationChecker: authService.authorizationChecker,
+    authorizationChecker: (action: Action, roles: string[]) => authService.authorizationChecker(action, roles),
 });
 
 // run express application on port 3000
